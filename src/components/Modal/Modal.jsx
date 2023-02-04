@@ -1,16 +1,45 @@
+import { Component } from 'react';
+import { createPortal } from 'react-dom';
+import PropTypes from 'prop-types';
+import css from './Modal.modle.css';
 
-import * as basicLightbox from 'basiclightbox';
+const modalRoot = document.querySelector('#modal-root');
 
-<div class="overlay">
-  <div class="modal">
-    <img src="" alt="" />
-  </div>
-</div>;
+class Modal extends Component {
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown);
+  }
 
+  componentWillUnmount() {
+window.removeEventListener('keydown', this.handleKeyDown);
+  }
 
+  handleKeyDown = e => {
+    if (e.code === 'Escape') {
+      this.props.onClose();
+    }
+  };
 
-const instance = basicLightbox.create(`
-    <img src="assets/images/image.png" width="800" height="600">
-`);
+  handleBackdropClick = e => {
+    if (e.target = e.currentTarget) {
+      this.props.onClose();
+    }
+  };
 
-instance.show();
+  render() {
+    return createPortal(
+      <div className={css.overlay} onClick={this.handleBackdropClick} >
+        <div className={css.modal}>
+          {this.props.children}
+        </div>
+      </div>, modalRoot
+    );
+  }
+}
+
+export default Modal;
+
+Modal.propTypes = {
+  children: PropTypes.element.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
