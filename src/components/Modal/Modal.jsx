@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
-import css from './Modal.modle.css';
+import css from './Modal.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
 
@@ -28,8 +28,9 @@ window.removeEventListener('keydown', this.handleKeyDown);
 
   render() {
     return createPortal(
-      <div className={css.overlay} onClick={this.handleBackdropClick} >
-        <div className={css.modal}>
+      <div className={css.Overlay} onClick={this.handleBackdropClick} >
+        <button type='button' className={css.ModalCloseBtn} onClick={this.props.onClose()} />
+        <div className={css.Modal}>
           {this.props.children}
         </div>
       </div>, modalRoot
