@@ -33,7 +33,7 @@ class Searchbar extends Component {
 
   render() {
     return (
-      <header className={css.searchbar}>
+      <header className={css.Searchbar}>
         <form className={css.SearchForm} onSubmit={this.handleSubmit}>
           <button type="submit" className={css.SearchFormButton}>
             <FcSearch />

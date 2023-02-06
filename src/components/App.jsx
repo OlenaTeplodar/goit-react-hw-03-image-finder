@@ -64,12 +64,12 @@ class App extends Component {
     this.setState({ currentImage: data });
   };
 
-  closeModal = () => {
+  onClose = () => {
     this.setState({ currentImage: null });
   };
 
   render() {
-    const { onLoadMore, searchImages, openModal, closeModal } = this;
+    const { onLoadMore, searchImages, openModal, onClose } = this;
     const { images, isLoading, error, currentImage, search } = this.state;
 
     return (
@@ -89,11 +89,12 @@ class App extends Component {
         {isLoading && <Loader />}
 
         {currentImage && (
-          <Modal>
-            <img className={css.CurrentImage} currentImage={currentImage}
+          <Modal
+            className={css.CurrentImage}
+            currentImage={currentImage}
             search={search}
-            />
-          </Modal>
+            onClose={onClose}
+          />
         )}
       </>
     );
